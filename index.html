@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+
+<title>POGIBSHIY NOCHIU® — Свой мир</title>
+<meta name="description" content="POGIBSHIY NOCHIU — независимый цифровой проект. Свой мир. Свои правила.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --bg: #080808;
+  --text: #eae8e2;
+  --muted: #85827a;
+  --line: #292825;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  height: 85px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: 15px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  transition: .3s;
+}
+
+nav a:hover { color: white; }
+
+.hero {
+  min-height: 690px;
+  height: calc(100vh - 85px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+  position: relative;
+}
+
+.tag {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(52px, 9.5vw, 130px);
+  line-height: .95;
+  letter-spacing: -5px;
+}
+
+h1 span {
+  color: #77736a;
+  font-style: italic;
+}
+
+.hero-desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+  margin-top: 35px;
+}
+
+.cta {
+  margin-top: 40px;
+  display: inline-flex;
+  width: fit-content;
+  border: 1px solid #77736a;
+  padding: 18px 30px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  transition: .3s;
+}
+
+.cta:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.hero-bottom {
+  position: absolute;
+  bottom: 35px;
+  left: 10%;
+  right: 10%;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+section {
+  padding: 130px 10%;
+  border-top: 1px solid var(--line);
+}
+
+.section-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 35px;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(35px, 5vw, 65px);
+  line-height: 1.2;
+  max-width: 750px;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2.2;
+  max-width: 470px;
+  margin-top: 25px;
+}
+
+.community {
+  background: #11110f;
+  text-align: center;
+  padding: 150px 10%;
+}
+
+.community h2 {
+  margin: auto;
+}
+
+.community .description {
+  margin: 25px auto 0;
+}
+
+.community .cta {
+  margin-top: 40px;
+}
+
+footer {
+  padding: 35px 7%;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s, transform .8s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(max-width:600px) {
+  header {
+    padding: 0 6%;
+    height: 70px;
+  }
+
+  nav { gap: 13px; }
+  nav a { font-size: 8px; }
+  .logo { font-size: 12px; }
+
+  .hero {
+    min-height: 650px;
+    padding: 0 7%;
+  }
+
+  h1 { letter-spacing: -3px; }
+
+  .hero-bottom {
+    left: 7%;
+    right: 7%;
+  }
+
+  section { padding: 95px 7%; }
+
+  footer {
+    padding: 30px 6%;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="#">PN®</a>
+
+  <nav>
+    <a href="#about">О ПРОЕКТЕ</a>
+    <a href="#community">СООБЩЕСТВО</a>
+    <a href="#contact">СВЯЗЬ</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="hero">
+
+  <div class="tag">
+    НЕЗАВИСИМЫЙ ЦИФРОВОЙ ПРОЕКТ · 2026
+  </div>
+
+  <h1>
+    POGIBSHIY<br>
+    <span>NOCHIU.</span>
+  </h1>
+
+  <p class="hero-desc">
+    СВОЙ МИР.<br>
+    СВОИ ПРАВИЛА.<br>
+    НИКАКОГО ЛИШНЕГО ШУМА.
+  </p>
+
+  <a class="cta" href="https://t.me/your_username">
+    ВОЙТИ В ПРОСТРАНСТВО ↗
+  </a>
+
+  <div class="hero-bottom">
+    <span>С 2026 ГОДА</span>
+    <span>НЕ ДЛЯ ВСЕХ.</span>
+  </div>
+
+</div>
+
+<section id="about">
+
+  <div class="section-label reveal">
+    01 — О ПРОЕКТЕ
+  </div>
+
+  <h2 class="reveal">
+    Мы выбираем<br>
+    <em>свой путь.</em>
+  </h2>
+
+  <p class="description reveal">
+    POGIBSHIY NOCHIU — независимый цифровой
+    проект, созданный вокруг индивидуальности,
+    творчества и собственного взгляда на мир.
+
+    <br><br>
+
+    Здесь нет необходимости следовать
+    чужим правилам. Только собственное
+    направление и своя атмосфера.
+  </p>
+
+</section>
+
+<section class="community" id="community">
+
+  <div class="section-label reveal">
+    02 — СООБЩЕСТВО
+  </div>
+
+  <h2 class="reveal">
+    Найди своё<br>
+    пространство.
+  </h2>
+
+  <p class="description reveal">
+    Открой для себя наше пространство
+    в Telegram. Следи за проектом,
+    знакомься с его идеей и становись
+    частью сообщества.
+  </p>
+
+  <a class="cta reveal"
+     href="https://t.me/https://t.me/pogibshiy_nochiu">
+    ОТПРАВИТЬ ЗАЯВКУ ↗
+  </a>
+
+</section>
+
+<section id="contact">
+
+  <div class="section-label reveal">
+    03 — КОНТАКТЫ
+  </div>
+
+  <h2 class="reveal">
+    Оставайся<br>
+    на связи.
+  </h2>
+
+  <p class="description reveal">
+    По вопросам сотрудничества,
+    предложений и взаимодействия
+    обращайтесь через Telegram.
+  </p>
+
+  <a class="cta reveal"
+     href="https://t.me/your_username">
+    СВЯЗАТЬСЯ С НАМИ ↗
+  </a>
+
+</section>
+
+</main>
+
+<footer>
+  <span>POGIBSHIY NOCHIU®</span>
+  <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ · 2026</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

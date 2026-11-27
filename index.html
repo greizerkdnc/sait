@@ -2,359 +2,320 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <meta name="description" content="POGIBSHIY NOCHIU — свой мир, свои правила.">
-  <title>POGIBSHIY NOCHIU®</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>POGIBSHIY NOCHIU®</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#080808;color:#eae8e2;font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+header{padding:28px 8%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292825}
+.logo{font-size:15px;letter-spacing:3px;font-weight:700}
+nav{display:flex;gap:30px;font-size:11px;letter-spacing:1.5px;color:#85827a}
+nav a:hover{color:white}
+.hero{min-height:85vh;padding:100px 8% 60px;display:flex;flex-direction:column;justify-content:center}
+.tag,.section-label{color:#85827a;font-size:10px;letter-spacing:3px;margin-bottom:35px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(55px,11vw,145px);line-height:.92;font-weight:500;letter-spacing:-5px}
+h1 span{display:block;color:#85827a}
+.hero-description{margin-top:35px;font-size:11px;letter-spacing:2px;color:#85827a;line-height:2}
+.button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #55534d;padding:19px 28px;margin-top:40px;width:fit-content;font-size:10px;letter-spacing:2px;transition:.3s}
+.button:hover{background:#eae8e2;color:#080808;border-color:#eae8e2}
+.hero-bottom{display:flex;justify-content:space-between;margin-top:100px;color:#85827a;font-size:9px;letter-spacing:2px}
+section{padding:120px 8%;border-top:1px solid #292825}
+h2{font-family:'Playfair Display',serif;font-size:clamp(38px,7vw,75px);font-weight:500;line-height:1.1;max-width:800px}
+.section-description{color:#85827a;font-size:13px;line-height:2;max-width:450px;margin-top:25px}
+footer{border-top:1px solid #292825;padding:30px 8%;display:flex;justify-content:space-between;color:#85827a;font-size:9px;letter-spacing:2px}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity 1s,transform 1s}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* AI BUTTON */
+#ai-toggle{
+position:fixed;right:24px;bottom:24px;z-index:1000;
+width:64px;height:64px;border-radius:50%;
+background:#eae8e2;color:#080808;border:none;
+font-size:23px;cursor:pointer;box-shadow:0 5px 30px #000;
+transition:.3s
+}
+#ai-toggle:hover{transform:scale(1.07)}
 
-    body {
-      background: #080808;
-      color: #eae8e2;
-      font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
-    }
+/* CHAT */
+#ai-chat{
+position:fixed;right:24px;bottom:100px;z-index:1000;
+width:min(360px,calc(100vw - 32px));height:480px;
+background:#101010;border:1px solid #343434;border-radius:16px;
+display:none;flex-direction:column;overflow:hidden;
+box-shadow:0 15px 60px #000
+}
+#ai-chat.open{display:flex;animation:chatIn .25s ease}
+@keyframes chatIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ai-header{padding:18px;border-bottom:1px solid #303030;display:flex;align-items:center;gap:12px}
+.ai-avatar{width:38px;height:38px;border-radius:50%;background:#eae8e2;color:#080808;display:grid;place-items:center;font-weight:700}
+.ai-title{font-size:13px;font-weight:600;letter-spacing:1px}
+.ai-status{font-size:10px;color:#8eaa8e;margin-top:4px}
+#ai-close{margin-left:auto;background:none;border:0;color:#aaa;font-size:22px;cursor:pointer}
+#ai-messages{padding:16px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.message{max-width:88%;padding:12px 14px;border-radius:12px;font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot-message{background:#242424;color:#eae8e2;align-self:flex-start;border-bottom-left-radius:3px}
+.user-message{background:#eae8e2;color:#080808;align-self:flex-end;border-bottom-right-radius:3px}
+.quick-buttons{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.quick-buttons button{
+background:transparent;color:#eae8e2;border:1px solid #555;
+padding:10px;border-radius:8px;text-align:left;
+font-family:inherit;font-size:11px;cursor:pointer;transition:.2s
+}
+.quick-buttons button:hover{background:#eae8e2;color:#080808}
+#ai-input-area{padding:12px;border-top:1px solid #303030;display:flex;gap:8px}
+#ai-input{min-width:0;flex:1;background:#202020;border:1px solid #393939;border-radius:8px;padding:12px;color:white;outline:none;font-family:inherit;font-size:12px}
+#ai-send{background:#eae8e2;color:#080808;border:0;border-radius:8px;padding:0 15px;cursor:pointer;font-size:16px}
+.ai-note{text-align:center;color:#777;font-size:9px;padding:0 8px 9px}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    header {
-      width: 100%;
-      padding: 28px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #292825;
-    }
-
-    .logo {
-      font-size: 15px;
-      letter-spacing: 3px;
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      gap: 30px;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      color: #85827a;
-    }
-
-    nav a:hover {
-      color: #fff;
-    }
-
-    .hero {
-      min-height: 85vh;
-      padding: 100px 8% 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-    }
-
-    .tag {
-      color: #85827a;
-      font-size: 10px;
-      letter-spacing: 3px;
-      margin-bottom: 35px;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(55px, 11vw, 145px);
-      line-height: .92;
-      font-weight: 500;
-      letter-spacing: -5px;
-    }
-
-    h1 span {
-      display: block;
-      color: #85827a;
-    }
-
-    .hero-description {
-      margin-top: 35px;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #85827a;
-      line-height: 2;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #55534d;
-      padding: 19px 28px;
-      margin-top: 40px;
-      width: fit-content;
-      font-size: 10px;
-      letter-spacing: 2px;
-      transition: .3s ease;
-    }
-
-    .button:hover {
-      background: #eae8e2;
-      color: #080808;
-      border-color: #eae8e2;
-    }
-
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 100px;
-      color: #85827a;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-
-    section {
-      padding: 120px 8%;
-      border-top: 1px solid #292825;
-    }
-
-    .section-label {
-      color: #85827a;
-      font-size: 10px;
-      letter-spacing: 3px;
-      margin-bottom: 35px;
-    }
-
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 7vw, 75px);
-      font-weight: 500;
-      line-height: 1.1;
-      max-width: 800px;
-    }
-
-    .section-description {
-      color: #85827a;
-      font-size: 13px;
-      line-height: 2;
-      max-width: 450px;
-      margin-top: 25px;
-    }
-
-    footer {
-      border-top: 1px solid #292825;
-      padding: 30px 8%;
-      display: flex;
-      justify-content: space-between;
-      color: #85827a;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 22px 6%;
-      }
-
-      nav {
-        gap: 12px;
-        font-size: 8px;
-      }
-
-      .logo {
-        font-size: 11px;
-        letter-spacing: 2px;
-      }
-
-      .hero {
-        padding: 100px 6% 45px;
-        min-height: 80vh;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      section {
-        padding: 90px 6%;
-      }
-
-      footer {
-        padding: 25px 6%;
-        gap: 15px;
-        font-size: 8px;
-      }
-
-      .hero-bottom {
-        margin-top: 80px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
+@media(max-width:600px){
+header{padding:22px 6%}
+nav{gap:12px;font-size:8px}
+.logo{font-size:11px;letter-spacing:2px}
+.hero{padding:100px 6% 45px;min-height:80vh}
+h1{letter-spacing:-2px}
+section{padding:90px 6%}
+footer{padding:25px 6%;gap:15px;font-size:8px}
+.hero-bottom{margin-top:80px}
+#ai-toggle{right:16px;bottom:16px;width:58px;height:58px}
+#ai-chat{right:12px;bottom:86px;height:min(480px,70vh)}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+.reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 
 <body>
+<header>
+<a href="#" class="logo">PN®</a>
+<nav>
+<a href="#about">О НАС</a>
+<a href="#community">СООБЩЕСТВО</a>
+<a href="#contact">КОНТАКТЫ</a>
+</nav>
+</header>
 
-  <header>
-    <a href="#" class="logo">PN®</a>
+<main>
+<div class="hero">
+<div class="tag reveal">НЕЗАВИСИМЫЙ ЦИФРОВОЙ ПРОЕКТ · 2026</div>
+<h1 class="reveal">POGIBSHIY<span>NOCHIU.</span></h1>
+<p class="hero-description reveal">СВОЙ МИР. СВОИ ПРАВИЛА.<br>НИКАКОГО ЛИШНЕГО ШУМА.</p>
+<a class="button reveal" href="https://t.me/nochnoi_pogib" target="_blank" rel="noopener noreferrer">ВОЙТИ В ПРОСТРАНСТВО ↗</a>
+<div class="hero-bottom reveal"><span>С 2026 ГОДА</span><span>НЕ ДЛЯ ВСЕХ.</span></div>
+</div>
 
-    <nav>
-      <a href="#about">О НАС</a>
-      <a href="#community">СООБЩЕСТВО</a>
-      <a href="#contact">КОНТАКТЫ</a>
-    </nav>
-  </header>
+<section id="about">
+<div class="section-label reveal">01 / О ПРОЕКТЕ</div>
+<h2 class="reveal">Мы выбираем<br>свой путь.</h2>
+<p class="section-description reveal">POGIBSHIY NOCHIU — это больше, чем название. Это отдельное пространство для тех, кто ценит индивидуальность, стиль и свободу. Без лишнего шума. Без чужих правил.</p>
+</section>
 
-  <main>
-    <div class="hero">
-      <div class="tag reveal">НЕЗАВИСИМЫЙ ЦИФРОВОЙ ПРОЕКТ · 2026</div>
+<section id="community">
+<div class="section-label reveal">02 / СООБЩЕСТВО</div>
+<h2 class="reveal">Найди своё<br>пространство.</h2>
+<p class="section-description reveal">Стань частью нашего мира. Следи за обновлениями и присоединяйся к сообществу POGIBSHIY NOCHIU.</p>
+<a class="button reveal" href="https://t.me/pogibshiy_nochiu" target="_blank" rel="noopener noreferrer">ОТПРАВИТЬ ЗАЯВКУ ↗</a>
+</section>
 
-      <h1 class="reveal">
-        POGIBSHIY
-        <span>NOCHIU.</span>
-      </h1>
+<section id="contact">
+<div class="section-label reveal">03 / КОНТАКТЫ</div>
+<h2 class="reveal">Оставайся<br>на связи.</h2>
+<p class="section-description reveal">Есть вопросы или предложения? Свяжись с нами напрямую.</p>
+<a class="button reveal" href="https://t.me/pogibshiy_nochiu" target="_blank" rel="noopener noreferrer">СВЯЗАТЬСЯ С НАМИ ↗</a>
+</section>
+</main>
 
-      <p class="hero-description reveal">
-        СВОЙ МИР. СВОИ ПРАВИЛА.<br>
-        НИКАКОГО ЛИШНЕГО ШУМА.
-      </p>
+<footer>
+<span>POGIBSHIY NOCHIU®</span>
+<span>ВСЕ ПРАВА ЗАЩИЩЕНЫ · 2026</span>
+</footer>
 
-      <a
-        class="button reveal"
-        href="https://t.me/nochnoi_pogib"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        ВОЙТИ В ПРОСТРАНСТВО ↗
-      </a>
+<!-- POGIBSHIY AI -->
+<button id="ai-toggle" aria-label="Открыть POGIBSHIY AI">✦</button>
 
-      <div class="hero-bottom reveal">
-        <span>С 2026 ГОДА</span>
-        <span>НЕ ДЛЯ ВСЕХ.</span>
-      </div>
-    </div>
+<div id="ai-chat">
+<div class="ai-header">
+<div class="ai-avatar">PN</div>
+<div>
+<div class="ai-title">POGIBSHIY AI</div>
+<div class="ai-status">● Онлайн · Помощник проекта</div>
+</div>
+<button id="ai-close" aria-label="Закрыть чат">×</button>
+</div>
 
-    <section id="about">
-      <div class="section-label reveal">01 / О ПРОЕКТЕ</div>
+<div id="ai-messages" aria-live="polite"></div>
 
-      <h2 class="reveal">
-        Мы выбираем<br>
-        свой путь.
-      </h2>
+<div id="ai-input-area">
+<input id="ai-input" type="text" placeholder="Напиши сообщение..." autocomplete="off">
+<button id="ai-send" aria-label="Отправить">↗</button>
+</div>
+<div class="ai-note">POGIBSHIY NOCHIU® · DIGITAL SPACE</div>
+</div>
 
-      <p class="section-description reveal">
-        POGIBSHIY NOCHIU — это больше, чем название.
-        Это отдельное пространство для тех, кто
-        ценит индивидуальность, стиль и свободу.
-        Без лишнего шума. Без чужих правил.
-      </p>
-    </section>
+<script>
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+observer.unobserve(entry.target);
+}
+});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    <section id="community">
-      <div class="section-label reveal">02 / СООБЩЕСТВО</div>
+const toggle=document.getElementById('ai-toggle');
+const chat=document.getElementById('ai-chat');
+const close=document.getElementById('ai-close');
+const messages=document.getElementById('ai-messages');
+const input=document.getElementById('ai-input');
+const send=document.getElementById('ai-send');
 
-      <h2 class="reveal">
-        Найди своё<br>
-        пространство.
-      </h2>
+let applicationStep=0;
+let applicationName='';
+let applicationReason='';
 
-      <p class="section-description reveal">
-        Стань частью нашего мира.
-        Следи за обновлениями и присоединяйся
-        к сообществу POGIBSHIY NOCHIU.
-      </p>
+function addMessage(text,type='bot-message'){
+const bubble=document.createElement('div');
+bubble.className='message '+type;
+bubble.textContent=text;
+messages.appendChild(bubble);
+messages.scrollTop=messages.scrollHeight;
+}
 
-      <a
-        class="button reveal"
-        href="https://t.me/pogibshiy_nochiu"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        ОТПРАВИТЬ ЗАЯВКУ ↗
-      </a>
-    </section>
+function addButtons(buttons){
+const container=document.createElement('div');
+container.className='quick-buttons';
+buttons.forEach(item=>{
+const button=document.createElement('button');
+button.textContent=item.label;
+button.addEventListener('click',()=>item.action());
+container.appendChild(button);
+});
+messages.appendChild(container);
+messages.scrollTop=messages.scrollHeight;
+}
 
-    <section id="contact">
-      <div class="section-label reveal">03 / КОНТАКТЫ</div>
+function welcome(){
+addMessage('Привет! Я POGIBSHIY AI 🖤\nРад видеть тебя в пространстве POGIBSHIY NOCHIU®. Чем могу помочь?');
+addButtons([
+{label:'01 · О проекте',action:about},
+{label:'02 · Как присоединиться?',action:join},
+{label:'03 · Оставить заявку',action:startApplication},
+{label:'04 · Связаться с создателем',action:contact}
+]);
+}
 
-      <h2 class="reveal">
-        Оставайся<br>
-        на связи.
-      </h2>
+function about(){
+addMessage('О ПРОЕКТЕ\n\nPOGIBSHIY NOCHIU® — независимый цифровой проект. Мы создаём собственное пространство, объединяем людей и развиваем своё сообщество.\n\nСвой мир. Свои правила. Никакого лишнего шума.');
+addButtons([{label:'← В главное меню',action:welcome}]);
+}
 
-      <p class="section-description reveal">
-        Есть вопросы или предложения?
-        Свяжись с нами напрямую.
-      </p>
+function join(){
+addMessage('Хочешь присоединиться? 🖤\n\nТы можешь оставить заявку прямо здесь. Я задам пару вопросов и подготовлю сообщение для создателя проекта.');
+addButtons([
+{label:'Оставить заявку',action:startApplication},
+{label:'Открыть Telegram',action:contact},
+{label:'← В главное меню',action:welcome}
+]);
+}
 
-      <a
-        class="button reveal"
-        href="https://t.me/pogibshiy_nochiu"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        СВЯЗАТЬСЯ С НАМИ ↗
-      </a>
-    </section>
-  </main>
+function contact(){
+addMessage('Связаться с создателем можно напрямую в Telegram: @pogibshiy_nochiu');
+addButtons([
+{label:'Открыть Telegram ↗',action:()=>window.open('https://t.me/pogibshiy_nochiu','_blank','noopener')},
+{label:'← В главное меню',action:welcome}
+]);
+}
 
-  <footer>
-    <span>POGIBSHIY NOCHIU®</span>
-    <span>ВСЕ ПРАВА ЗАЩИЩЕНЫ · 2026</span>
-  </footer>
+function startApplication(){
+applicationStep=1;
+applicationName='';
+applicationReason='';
+addMessage('Давай оформим заявку! 🖤\n\nКак тебя зовут или как к тебе обращаться?');
+}
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12
-    });
+function handleText(text){
+const value=text.trim();
+if(!value)return;
+addMessage(value,'user-message');
 
-    document.querySelectorAll('.reveal').forEach((element) => {
-      observer.observe(element);
-    });
-  </script>
+if(applicationStep===1){
+applicationName=value;
+applicationStep=2;
+addMessage('Приятно познакомиться, '+applicationName+'! Расскажи, почему хочешь присоединиться к POGIBSHIY NOCHIU®.');
+return;
+}
+if(applicationStep===2){
+applicationReason=value;
+applicationStep=0;
+addMessage('Спасибо! Твоя заявка подготовлена 🖤\n\nИмя: '+applicationName+'\nПричина: '+applicationReason+'\n\nНажми кнопку ниже, чтобы отправить её создателю.');
+const textToSend='Заявка POGIBSHIY NOCHIU®\nИмя: '+applicationName+'\nПричина: '+applicationReason;
+addButtons([
+{label:'Отправить заявку в Telegram ↗',action:()=>window.open('https://t.me/pogibshiy_nochiu?text='+encodeURIComponent(textToSend),'_blank','noopener')},
+{label:'Вернуться в меню',action:welcome}
+]);
+return;
+}
 
+const lower=value.toLowerCase();
+if(/привет|здравствуй|салам|хай/.test(lower)){
+addMessage('Привет! Рад видеть тебя здесь 🖤 Чем могу помочь?');
+addButtons([
+{label:'О проекте',action:about},
+{label:'Оставить заявку',action:startApplication},
+{label:'Связаться с создателем',action:contact}
+]);
+}else if(/проект|что такое|расскаж/.test(lower)){
+about();
+}else if(/вступ|присоедин|попасть|участник/.test(lower)){
+join();
+}else if(/заявк|подать/.test(lower)){
+startApplication();
+}else if(/контакт|создател|связаться|телеграм/.test(lower)){
+contact();
+}else if(/спасибо|благодар/.test(lower)){
+addMessage('Всегда пожалуйста! 🖤 Если появятся вопросы — я здесь.');
+addButtons([{label:'Главное меню',action:welcome}]);
+}else{
+addMessage('Я пока умею отвечать по основным темам проекта. Попробуй выбрать один из разделов ниже 🖤');
+addButtons([
+{label:'О проекте',action:about},
+{label:'Как присоединиться?',action:join},
+{label:'Оставить заявку',action:startApplication},
+{label:'Связаться с создателем',action:contact}
+]);
+}
+}
+
+function sendMessage(){
+const value=input.value;
+if(!value.trim())return;
+input.value='';
+handleText(value);
+}
+
+toggle.addEventListener('click',()=>{
+chat.classList.toggle('open');
+if(chat.classList.contains('open')&&!messages.dataset.started){
+messages.dataset.started='yes';
+welcome();
+}
+});
+close.addEventListener('click',()=>chat.classList.remove('open'));
+send.addEventListener('click',sendMessage);
+input.addEventListener('keydown',event=>{
+if(event.key==='Enter')sendMessage();
+});
+</script>
 </body>
 </html>
